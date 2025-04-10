@@ -92,4 +92,10 @@
   .dashboard-grid {
     @apply grid gap-4 lg:gap-6;
   }
+  .sidebar-fixed {
+    @apply fixed top-0 left-0 h-screen flex-shrink-0 z-40 overflow-y-auto;
+  }
+  .main-content {
+    @apply ml-[280px] flex-1 overflow-x-hidden min-h-screen;
+  }
 }

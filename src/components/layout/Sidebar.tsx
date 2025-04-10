@@ -17,6 +17,7 @@ import {
   Warehouse
 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface SidebarLinkProps {
   to: string;
@@ -67,42 +68,44 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-[#1A2942] border-r border-slate-700">
+    <div className="sidebar-fixed w-[280px] bg-[#1A2942] border-r border-slate-700">
       <div className="flex h-14 items-center border-b border-slate-700 px-4">
         <div className="flex items-center gap-2 font-semibold text-white cursor-pointer" onClick={() => navigate("/")}>
           <Box className="h-6 w-6 text-cyan-400" />
           <span className="text-lg">CloudCompass</span>
         </div>
       </div>
-      <div className="flex-1 overflow-auto py-2">
-        <nav className="grid gap-1 px-2">
-          {links.map((link) => (
-            <SidebarLink
-              key={link.to}
-              to={link.to}
-              icon={link.icon}
-              label={link.label}
-              isActive={
-                link.to === "/" ? currentPath === "/" : currentPath.startsWith(link.to)
-              }
-            />
-          ))}
-        </nav>
-      </div>
-      <div className="border-t border-slate-700 p-4">
-        <div 
-          className="flex items-center gap-2 text-sm rounded-md p-2 text-white/90 cursor-pointer hover:bg-white/10 transition-all"
-          onClick={handleProfileClick}
-        >
-          <div className="h-8 w-8 rounded-full bg-cyan-600 flex items-center justify-center">
-            <span className="text-white font-medium">SC</span>
-          </div>
-          <div>
-            <p className="font-medium text-white">Supply Chain Admin</p>
-            <p className="text-xs text-white/70">admin@cloudcompass.com</p>
+      <ScrollArea className="h-[calc(100vh-3.5rem)]">
+        <div className="py-2">
+          <nav className="grid gap-1 px-2">
+            {links.map((link) => (
+              <SidebarLink
+                key={link.to}
+                to={link.to}
+                icon={link.icon}
+                label={link.label}
+                isActive={
+                  link.to === "/" ? currentPath === "/" : currentPath.startsWith(link.to)
+                }
+              />
+            ))}
+          </nav>
+        </div>
+        <div className="border-t border-slate-700 p-4 mt-auto">
+          <div 
+            className="flex items-center gap-2 text-sm rounded-md p-2 text-white/90 cursor-pointer hover:bg-white/10 transition-all"
+            onClick={handleProfileClick}
+          >
+            <div className="h-8 w-8 rounded-full bg-cyan-600 flex items-center justify-center">
+              <span className="text-white font-medium">SC</span>
+            </div>
+            <div>
+              <p className="font-medium text-white">Supply Chain Admin</p>
+              <p className="text-xs text-white/70">admin@cloudcompass.com</p>
+            </div>
           </div>
         </div>
-      </div>
+      </ScrollArea>
     </div>
   );
 };
