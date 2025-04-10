@@ -67,8 +67,8 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-sidebar-background border-r">
-      <div className="flex h-14 items-center border-b px-4">
+    <div className="flex h-screen flex-col bg-sidebar-background border-r border-sidebar-border">
+      <div className="flex h-14 items-center border-b border-sidebar-border px-4">
         <div className="flex items-center gap-2 font-semibold text-sidebar-foreground cursor-pointer" onClick={() => navigate("/")}>
           <Box className="h-6 w-6 text-sidebar-primary" />
           <span className="text-lg">CloudCompass</span>
@@ -89,9 +89,9 @@ const Sidebar = () => {
           ))}
         </nav>
       </div>
-      <div className="border-t p-4">
+      <div className="border-t border-sidebar-border p-4">
         <div 
-          className="flex items-center gap-2 text-sm text-sidebar-foreground/80 cursor-pointer hover:bg-sidebar-accent/50 p-2 rounded-md transition-all"
+          className="flex items-center gap-2 text-sm rounded-md p-2 text-sidebar-foreground/80 cursor-pointer hover:bg-sidebar-accent transition-all"
           onClick={handleProfileClick}
         >
           <div className="h-8 w-8 rounded-full bg-sidebar-accent flex items-center justify-center">
@@ -99,7 +99,7 @@ const Sidebar = () => {
           </div>
           <div>
             <p className="font-medium text-sidebar-foreground">Supply Chain Admin</p>
-            <p className="text-xs">admin@cloudcompass.com</p>
+            <p className="text-xs text-sidebar-foreground/70">admin@cloudcompass.com</p>
           </div>
         </div>
       </div>
