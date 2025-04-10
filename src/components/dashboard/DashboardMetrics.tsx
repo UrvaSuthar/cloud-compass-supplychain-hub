@@ -8,8 +8,11 @@ import {
   TruckIcon, 
   AlertTriangleIcon
 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const DashboardMetrics = () => {
+  const { toast } = useToast();
+
   const metrics = [
     {
       title: "Total Inventory",
@@ -48,10 +51,21 @@ const DashboardMetrics = () => {
     },
   ];
 
+  const handleMetricClick = (metricTitle: string) => {
+    toast({
+      title: `${metricTitle} Details`,
+      description: `Viewing detailed information for ${metricTitle.toLowerCase()}`,
+    });
+  };
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
       {metrics.map((metric, i) => (
-        <div key={i} className="stat-card">
+        <div 
+          key={i} 
+          className="stat-card cursor-pointer hover:shadow-md transition-all" 
+          onClick={() => handleMetricClick(metric.title)}
+        >
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-muted-foreground">
               {metric.title}

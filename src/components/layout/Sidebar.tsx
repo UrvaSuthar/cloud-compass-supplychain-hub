@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +16,7 @@ import {
   Users,
   Warehouse
 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 interface SidebarLinkProps {
   to: string;
@@ -42,6 +43,8 @@ const SidebarLink = ({ to, icon, label, isActive }: SidebarLinkProps) => (
 const Sidebar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const links = [
     { to: "/", icon: <Home size={20} />, label: "Dashboard" },
@@ -56,10 +59,17 @@ const Sidebar = () => {
     { to: "/settings", icon: <Settings size={20} />, label: "Settings" },
   ];
 
+  const handleProfileClick = () => {
+    toast({
+      title: "User Profile",
+      description: "Viewing Supply Chain Admin profile",
+    });
+  };
+
   return (
     <div className="flex h-screen flex-col bg-sidebar-background border-r">
       <div className="flex h-14 items-center border-b px-4">
-        <div className="flex items-center gap-2 font-semibold text-sidebar-foreground">
+        <div className="flex items-center gap-2 font-semibold text-sidebar-foreground cursor-pointer" onClick={() => navigate("/")}>
           <Box className="h-6 w-6 text-sidebar-primary" />
           <span className="text-lg">CloudCompass</span>
         </div>
@@ -80,7 +90,10 @@ const Sidebar = () => {
         </nav>
       </div>
       <div className="border-t p-4">
-        <div className="flex items-center gap-2 text-sm text-sidebar-foreground/80">
+        <div 
+          className="flex items-center gap-2 text-sm text-sidebar-foreground/80 cursor-pointer hover:bg-sidebar-accent/50 p-2 rounded-md transition-all"
+          onClick={handleProfileClick}
+        >
           <div className="h-8 w-8 rounded-full bg-sidebar-accent flex items-center justify-center">
             <span className="text-sidebar-foreground font-medium">SC</span>
           </div>

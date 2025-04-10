@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ChevronRightIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
 
 const orderStatusMap = {
   processing: { label: "Processing", class: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300" },
@@ -52,6 +54,24 @@ const recentOrders = [
 ];
 
 const RecentOrders = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleViewAllOrders = () => {
+    navigate("/orders");
+    toast({
+      title: "Orders Page",
+      description: "Navigating to all orders",
+    });
+  };
+
+  const handleViewOrder = (orderId: string) => {
+    toast({
+      title: "Order Details",
+      description: `Viewing details for order ${orderId}`,
+    });
+  };
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -59,7 +79,7 @@ const RecentOrders = () => {
           <CardTitle>Recent Orders</CardTitle>
           <CardDescription>Latest purchase orders across all channels</CardDescription>
         </div>
-        <Button variant="outline" size="sm" className="h-8">
+        <Button variant="outline" size="sm" className="h-8" onClick={handleViewAllOrders}>
           View All
         </Button>
       </CardHeader>
@@ -68,7 +88,7 @@ const RecentOrders = () => {
           {recentOrders.map((order) => (
             <div
               key={order.id}
-              className="flex items-center justify-between rounded-lg border p-3 hover:bg-muted/50 transition-colors"
+              className="flex items-center justify-between rounded-lg border p-3 hover:bg-muted/50 transition-colors cursor-pointer"
             >
               <div className="grid gap-1">
                 <div className="font-medium">{order.id}</div>
@@ -85,7 +105,7 @@ const RecentOrders = () => {
                 >
                   {orderStatusMap[order.status].label}
                 </Badge>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleViewOrder(order.id)}>
                   <ChevronRightIcon className="h-4 w-4" />
                 </Button>
               </div>

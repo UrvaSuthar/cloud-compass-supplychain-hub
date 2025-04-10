@@ -11,6 +11,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useToast } from "@/components/ui/use-toast";
 
 const inventoryData = [
   {
@@ -48,6 +49,22 @@ const categoryData = [
 ];
 
 const InventoryOverview = () => {
+  const { toast } = useToast();
+  
+  const handleLocationClick = (location: string, current: number, capacity: number) => {
+    toast({
+      title: `${location} Inventory`,
+      description: `Current: ${current.toLocaleString()} units | Capacity: ${capacity.toLocaleString()} units`,
+    });
+  };
+  
+  const handleCategoryClick = (category: string, value: number) => {
+    toast({
+      title: `${category} Category`,
+      description: `Current inventory: ${value.toLocaleString()} units`,
+    });
+  };
+
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
       <Card>
@@ -58,7 +75,11 @@ const InventoryOverview = () => {
         <CardContent className="pb-2">
           <div className="space-y-4">
             {inventoryData.map((item) => (
-              <div key={item.name} className="space-y-1">
+              <div 
+                key={item.name} 
+                className="space-y-1 cursor-pointer hover:bg-muted/50 p-2 rounded-md transition-all"
+                onClick={() => handleLocationClick(item.name, item.current, item.capacity)}
+              >
                 <div className="flex items-center justify-between text-sm">
                   <span className="font-medium">{item.name}</span>
                   <span className="text-muted-foreground">
@@ -89,6 +110,12 @@ const InventoryOverview = () => {
               <BarChart
                 data={categoryData}
                 margin={{ top: 5, right: 5, left: 0, bottom: 5 }}
+                onClick={(data) => {
+                  if (data && data.activePayload && data.activePayload[0]) {
+                    const payload = data.activePayload[0].payload;
+                    handleCategoryClick(payload.name, payload.value);
+                  }
+                }}
               >
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
                 <XAxis dataKey="name" fontSize={12} tickLine={false} axisLine={false} />
@@ -101,7 +128,7 @@ const InventoryOverview = () => {
                     border: "none"
                   }} 
                 />
-                <Bar dataKey="value" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="value" fill="#3B82F6" radius={[4, 4, 0, 0]} cursor="pointer" />
               </BarChart>
             </ResponsiveContainer>
           </div>

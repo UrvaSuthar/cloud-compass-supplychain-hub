@@ -7,8 +7,18 @@ import InventoryOverview from "@/components/dashboard/InventoryOverview";
 import SupplyChainMap from "@/components/dashboard/SupplyChainMap";
 import RecentOrders from "@/components/dashboard/RecentOrders";
 import PerformanceChart from "@/components/dashboard/PerformanceChart";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
+  const { toast } = useToast();
+  
+  const handleQuickAction = (action: string) => {
+    toast({
+      title: "Action Triggered",
+      description: `You selected: ${action}`,
+    });
+  };
+
   return (
     <div className="grid min-h-screen grid-cols-[280px_1fr]">
       <Sidebar />
@@ -30,23 +40,34 @@ const Index = () => {
               <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 <RecentOrders />
                 <div className="space-y-6">
-                  {/* Placeholder for additional dashboard widgets */}
                   <div className="rounded-lg border bg-card p-6">
                     <h3 className="text-xl font-semibold mb-4">Quick Actions</h3>
                     <div className="grid gap-2">
-                      <button className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2">
+                      <button 
+                        className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2"
+                        onClick={() => handleQuickAction("Create Purchase Order")}
+                      >
                         <span className="bg-primary/10 p-1 rounded">📋</span>
                         Create Purchase Order
                       </button>
-                      <button className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2">
+                      <button 
+                        className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2"
+                        onClick={() => handleQuickAction("Inventory Audit")}
+                      >
                         <span className="bg-primary/10 p-1 rounded">🔍</span>
                         Inventory Audit
                       </button>
-                      <button className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2">
+                      <button 
+                        className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2"
+                        onClick={() => handleQuickAction("Generate Reports")}
+                      >
                         <span className="bg-primary/10 p-1 rounded">📊</span>
                         Generate Reports
                       </button>
-                      <button className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2">
+                      <button 
+                        className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2"
+                        onClick={() => handleQuickAction("Process Returns")}
+                      >
                         <span className="bg-primary/10 p-1 rounded">🛒</span>
                         Process Returns
                       </button>
