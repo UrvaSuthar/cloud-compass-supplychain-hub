@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Sidebar from "@/components/layout/Sidebar";
 import Header from "@/components/layout/Header";
@@ -8,18 +7,12 @@ import SupplyChainMap from "@/components/dashboard/SupplyChainMap";
 import RecentOrders from "@/components/dashboard/RecentOrders";
 import PerformanceChart from "@/components/dashboard/PerformanceChart";
 import { useToast } from "@/components/ui/use-toast";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogDescription,
-  DialogFooter
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-
 const Index = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [actionDialog, setActionDialog] = useState<{
     isOpen: boolean;
     title: string;
@@ -29,14 +22,12 @@ const Index = () => {
     title: "",
     description: ""
   });
-  
   const handleQuickAction = (action: string) => {
     let dialogContent = {
       title: action,
       description: ""
     };
-    
-    switch(action) {
+    switch (action) {
       case "Create Purchase Order":
         dialogContent.description = "Create a new purchase order for inventory replenishment with automated vendor selection.";
         break;
@@ -50,29 +41,27 @@ const Index = () => {
         dialogContent.description = "Manage and process customer returns with automated quality assessment.";
         break;
     }
-    
     setActionDialog({
       isOpen: true,
       title: dialogContent.title,
       description: dialogContent.description
     });
-    
     toast({
       title: "Action Initiated",
-      description: `You selected: ${action}`,
+      description: `You selected: ${action}`
     });
   };
-
   const handleCompleteAction = () => {
     toast({
       title: "Action Completed",
-      description: `${actionDialog.title} was completed successfully`,
+      description: `${actionDialog.title} was completed successfully`
     });
-    setActionDialog({ ...actionDialog, isOpen: false });
+    setActionDialog({
+      ...actionDialog,
+      isOpen: false
+    });
   };
-
-  return (
-    <div className="grid min-h-screen grid-cols-[280px_1fr]">
+  return <div className="grid min-h-screen ">
       <Sidebar />
       <div className="flex flex-col">
         <Header />
@@ -95,31 +84,19 @@ const Index = () => {
                   <div className="rounded-lg border bg-card p-6">
                     <h3 className="text-xl font-semibold mb-4">Quick Actions</h3>
                     <div className="grid gap-2">
-                      <button 
-                        className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2"
-                        onClick={() => handleQuickAction("Create Purchase Order")}
-                      >
+                      <button className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2" onClick={() => handleQuickAction("Create Purchase Order")}>
                         <span className="bg-primary/10 p-1 rounded">📋</span>
                         Create Purchase Order
                       </button>
-                      <button 
-                        className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2"
-                        onClick={() => handleQuickAction("Inventory Audit")}
-                      >
+                      <button className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2" onClick={() => handleQuickAction("Inventory Audit")}>
                         <span className="bg-primary/10 p-1 rounded">🔍</span>
                         Inventory Audit
                       </button>
-                      <button 
-                        className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2"
-                        onClick={() => handleQuickAction("Generate Reports")}
-                      >
+                      <button className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2" onClick={() => handleQuickAction("Generate Reports")}>
                         <span className="bg-primary/10 p-1 rounded">📊</span>
                         Generate Reports
                       </button>
-                      <button 
-                        className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2"
-                        onClick={() => handleQuickAction("Process Returns")}
-                      >
+                      <button className="w-full text-left px-4 py-2 border rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-2" onClick={() => handleQuickAction("Process Returns")}>
                         <span className="bg-primary/10 p-1 rounded">🛒</span>
                         Process Returns
                       </button>
@@ -133,7 +110,10 @@ const Index = () => {
         </main>
       </div>
 
-      <Dialog open={actionDialog.isOpen} onOpenChange={(open) => setActionDialog({...actionDialog, isOpen: open})}>
+      <Dialog open={actionDialog.isOpen} onOpenChange={open => setActionDialog({
+      ...actionDialog,
+      isOpen: open
+    })}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{actionDialog.title}</DialogTitle>
@@ -143,7 +123,10 @@ const Index = () => {
             <p>Would you like to proceed with this action?</p>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setActionDialog({...actionDialog, isOpen: false})}>
+            <Button variant="outline" onClick={() => setActionDialog({
+            ...actionDialog,
+            isOpen: false
+          })}>
               Cancel
             </Button>
             <Button onClick={handleCompleteAction}>
@@ -152,8 +135,6 @@ const Index = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
