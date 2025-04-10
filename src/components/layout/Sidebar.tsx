@@ -30,8 +30,8 @@ const SidebarLink = ({ to, icon, label, isActive }: SidebarLinkProps) => (
     <Button
       variant="ghost"
       className={cn(
-        "w-full justify-start gap-2 text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground",
-        isActive && "bg-sidebar-accent text-sidebar-foreground"
+        "w-full justify-start gap-2 text-white/90 hover:bg-white/10 hover:text-white",
+        isActive && "bg-white/10 text-white font-medium"
       )}
     >
       {icon}
@@ -67,10 +67,10 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col bg-sidebar-background border-r border-sidebar-border">
-      <div className="flex h-14 items-center border-b border-sidebar-border px-4">
-        <div className="flex items-center gap-2 font-semibold text-sidebar-foreground cursor-pointer" onClick={() => navigate("/")}>
-          <Box className="h-6 w-6 text-sidebar-primary" />
+    <div className="flex h-screen flex-col bg-[#1A2942] border-r border-slate-700">
+      <div className="flex h-14 items-center border-b border-slate-700 px-4">
+        <div className="flex items-center gap-2 font-semibold text-white cursor-pointer" onClick={() => navigate("/")}>
+          <Box className="h-6 w-6 text-cyan-400" />
           <span className="text-lg">CloudCompass</span>
         </div>
       </div>
@@ -89,17 +89,17 @@ const Sidebar = () => {
           ))}
         </nav>
       </div>
-      <div className="border-t border-sidebar-border p-4">
+      <div className="border-t border-slate-700 p-4">
         <div 
-          className="flex items-center gap-2 text-sm rounded-md p-2 text-sidebar-foreground/80 cursor-pointer hover:bg-sidebar-accent transition-all"
+          className="flex items-center gap-2 text-sm rounded-md p-2 text-white/90 cursor-pointer hover:bg-white/10 transition-all"
           onClick={handleProfileClick}
         >
-          <div className="h-8 w-8 rounded-full bg-sidebar-accent flex items-center justify-center">
-            <span className="text-sidebar-foreground font-medium">SC</span>
+          <div className="h-8 w-8 rounded-full bg-cyan-600 flex items-center justify-center">
+            <span className="text-white font-medium">SC</span>
           </div>
           <div>
-            <p className="font-medium text-sidebar-foreground">Supply Chain Admin</p>
-            <p className="text-xs text-sidebar-foreground/70">admin@cloudcompass.com</p>
+            <p className="font-medium text-white">Supply Chain Admin</p>
+            <p className="text-xs text-white/70">admin@cloudcompass.com</p>
           </div>
         </div>
       </div>
